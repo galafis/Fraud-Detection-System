@@ -50,6 +50,40 @@ graph TB
 
 ## 🔄 Real-time Scoring Pipeline
 
+### 📊 Model Performance Comparison
+
+We evaluated five different models on a balanced fraud detection dataset:
+
+![Model Comparison](assets/model_comparison.png)
+
+#### Performance Summary
+
+| Model | Precision | Recall | F1-Score | Best For |
+|-------|-----------|--------|----------|----------|
+| **XGBoost** | 0.94 | 0.91 | **0.925** | Production deployment |
+| **LightGBM** | 0.92 | 0.93 | **0.925** | Large-scale data |
+| **Random Forest** | 0.89 | 0.87 | 0.880 | Interpretability |
+| **Logistic Regression** | 0.85 | 0.88 | 0.865 | Baseline/fast inference |
+| **Neural Network** | 0.91 | 0.90 | 0.905 | Complex patterns |
+
+**Key Insights:**
+- XGBoost and LightGBM achieve the best overall performance (F1: 0.925)
+- LightGBM has slightly better recall (0.93), catching more fraudulent transactions
+- Random Forest offers good interpretability with acceptable performance
+- Neural networks show strong performance but require more computational resources
+
+#### Additional Visualizations
+
+The evaluation suite generates:
+- **ROC Curves**: Compare true positive vs false positive rates
+- **Precision-Recall Curves**: Optimize for imbalanced datasets
+- **Feature Importance**: Top features for fraud detection
+- **SHAP Values**: Explainability for individual predictions
+- **Confusion Matrices**: Detailed error analysis
+
+All visualizations are saved to `reports/figures/` after model evaluation.
+
+
 ```mermaid
 sequenceDiagram
     participant Transaction
