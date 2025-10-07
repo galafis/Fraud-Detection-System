@@ -17,6 +17,63 @@
 
 ## English
 
+## 📊 Fraud Detection Architecture
+
+```mermaid
+graph TB
+    A[Transaction Data] --> B[Feature Engineering]
+    B --> C[Data Balancing]
+    C -->|SMOTE| D[Synthetic Samples]
+    C -->|ADASYN| E[Adaptive Samples]
+    C -->|Undersampling| F[Reduced Majority]
+    D --> G[Model Training]
+    E --> G
+    F --> G
+    G --> H{Ensemble}
+    H --> I[XGBoost]
+    H --> J[LightGBM]
+    H --> K[CatBoost]
+    I --> L[Voting/Stacking]
+    J --> L
+    K --> L
+    L --> M[Fraud Probability]
+    M --> N{Threshold}
+    N -->|>0.5| O[FRAUD]
+    N -->|<=0.5| P[LEGITIMATE]
+    M --> Q[SHAP Explainability]
+    
+    style A fill:#e1f5ff
+    style O fill:#ffcdd2
+    style P fill:#c8e6c9
+    style N fill:#fff9c4
+```
+
+## 🔄 Real-time Scoring Pipeline
+
+```mermaid
+sequenceDiagram
+    participant Transaction
+    participant API
+    participant FeatureEng
+    participant Model
+    participant Explainer
+    participant Alert
+    
+    Transaction->>API: New transaction
+    API->>FeatureEng: Extract features
+    FeatureEng-->>API: Feature vector
+    API->>Model: Score transaction
+    Model-->>API: Fraud probability
+    alt High Risk
+        API->>Explainer: Generate explanation
+        Explainer-->>API: SHAP values
+        API->>Alert: Send alert
+    end
+    API-->>Transaction: Decision + explanation
+```
+
+
+
 ### 📋 Overview
 
 Production-grade fraud detection system implementing state-of-the-art techniques for handling imbalanced datasets. Features include ensemble methods (XGBoost, LightGBM, CatBoost), SMOTE/ADASYN for class balancing, SHAP for explainability, real-time scoring API, and monitoring dashboard.
